@@ -120,17 +120,21 @@ public class SelfishGeneEnvController : MonoBehaviour
         }
     }
 
-    public void TouchedHazard(SelfishGene agent)
+    public void SelfishButton(SelfishGene agent)
     {
         m_NumberOfRemainingPlayers--;
+        foreach(var item in AgentsList)
+        {
+            if(!GameObject.ReferenceEquals(item.Agent, agent))
+            {
+                item.Agent.gameObject.SetActive(false);
+            }
+        }
+
         if (m_NumberOfRemainingPlayers == 0 || agent.IHaveAKey)
         {
             m_AgentGroup.EndGroupEpisode();
             ResetScene();
-        }
-        else
-        {
-            agent.gameObject.SetActive(false);
         }
     }
 

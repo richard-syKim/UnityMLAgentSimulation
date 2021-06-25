@@ -7,6 +7,8 @@ public class SelfishGene : Agent
 {
 
     public GameObject MyKey; //my key gameobject. will be enabled when key picked up.
+    public GameObject wall1; //movable
+    public GameObject wall2; //movable
     public bool IHaveAKey; //have i picked up a key
     private PushBlockSettings m_PushBlockSettings;
     private Rigidbody m_AgentRb;
@@ -88,29 +90,28 @@ public class SelfishGene : Agent
                 m_GameController.UnlockDoor();
             }
         }
-        if (col.transform.CompareTag("dragon"))
+        if (col.transform.CompareTag("coopkey"))
         {
-            m_GameController.KilledByBaddie(this, col);
-            MyKey.SetActive(false);
-            IHaveAKey = false;
+            wall1.gameObject.SetActive(false);
+            wall2.gameObject.SetActive(false);
         }
-        if (col.transform.CompareTag("portal"))
+        else if(!MyKey.activeSelf)
         {
-            m_GameController.TouchedHazard(this);
+            wall1.gameObject.SetActive(true);
+            wall2.gameObject.SetActive(true);
+        }
+
+        if (col.transform.CompareTag("coopgoal"))
+        {
+            MyKey.SetActive(true);
+            IHaveAKey = true;
+        }
+        if (col.transform.CompareTag("selfgoal"))
+        {
+            m_GameController.SelfishButton(this);
         }
     }
 
-    void OnTriggerEnter(Collider col)
-    {
-        //if we find a key and it's parent is the main platform we can pick it up
-        if (col.transform.CompareTag("key") && col.transform.parent == transform.parent && gameObject.activeInHierarchy)
-        {
-            print("Picked up key");
-            MyKey.SetActive(true);
-            IHaveAKey = true;
-            col.gameObject.SetActive(false);
-        }
-    }
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
