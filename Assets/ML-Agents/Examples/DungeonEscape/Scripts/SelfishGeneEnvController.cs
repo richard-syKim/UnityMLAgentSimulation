@@ -118,18 +118,12 @@ public class SelfishGeneEnvController : MonoBehaviour
     {
         foreach (var item in AgentsList)
         {
-
-            //If item is dead, it shouldn't be activated
-            //ERROR ERROR ERROR ERROR
-
-
-            if (!item.Agent.activeSelf) 
+            if (!item.Agent) 
             {
-                item.Agent.gameObject.SetActive(false);
+                item.Agent.AddReward(1f);
             }
         }
 
-        m_AgentGroup.AddGroupReward(1f);
         StartCoroutine(GoalScoredSwapGroundMaterial(m_PushBlockSettings.goalScoredMaterial, 0.5f));
 
         print("Unlocked Door");
