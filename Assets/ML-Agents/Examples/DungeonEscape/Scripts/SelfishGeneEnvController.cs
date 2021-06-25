@@ -19,22 +19,6 @@ public class SelfishGeneEnvController : MonoBehaviour
         public Collider Col;
     }
 
-    [System.Serializable]
-    public class DragonInfo
-    {
-        public SimpleNPC Agent;
-        [HideInInspector]
-        public Vector3 StartingPos;
-        [HideInInspector]
-        public Quaternion StartingRot;
-        [HideInInspector]
-        public Rigidbody Rb;
-        [HideInInspector]
-        public Collider Col;
-        public Transform T;
-        public bool IsDead;
-    }
-
     /// <summary>
     /// Max Academy steps before this platform resets
     /// </summary>
@@ -60,7 +44,6 @@ public class SelfishGeneEnvController : MonoBehaviour
     Renderer m_GroundRenderer;
 
     public List<PlayerInfo> AgentsList = new List<PlayerInfo>();
-    public List<DragonInfo> DragonsList = new List<DragonInfo>();
     private Dictionary<SelfishGene, PlayerInfo> m_PlayerDict = new Dictionary<SelfishGene, PlayerInfo>();
     public bool UseRandomAgentRotation = true;
     public bool UseRandomAgentPosition = true;
@@ -98,13 +81,6 @@ public class SelfishGeneEnvController : MonoBehaviour
             // Add to team manager
             m_AgentGroup.RegisterAgent(item.Agent);
         }
-        foreach (var item in DragonsList)
-        {
-            item.StartingPos = item.Agent.transform.position;
-            item.StartingRot = item.Agent.transform.rotation;
-            item.T = item.Agent.transform;
-            item.Col = item.Agent.GetComponent<Collider>();
-        }
 
         ResetScene();
     }
@@ -131,7 +107,7 @@ public class SelfishGeneEnvController : MonoBehaviour
             }
         }
 
-        if (m_NumberOfRemainingPlayers == 0 || agent.IHaveAKey)
+        if (m_NumberOfRemainingPlayers == 0)
         {
             m_AgentGroup.EndGroupEpisode();
             ResetScene();
@@ -140,6 +116,19 @@ public class SelfishGeneEnvController : MonoBehaviour
 
     public void UnlockDoor()
     {
+        foreach (var item in AgentsList)
+        {
+
+            //If item is dead, it shouldn't be activated
+            //ERROR ERROR ERROR ERROR
+
+
+            if (!item.Agent.activeSelf) 
+            {
+                item.Agent.gameObject.SetActive(false);
+            }
+        }
+
         m_AgentGroup.AddGroupReward(1f);
         StartCoroutine(GoalScoredSwapGroundMaterial(m_PushBlockSettings.goalScoredMaterial, 0.5f));
 
@@ -147,22 +136,6 @@ public class SelfishGeneEnvController : MonoBehaviour
         m_AgentGroup.EndGroupEpisode();
 
         ResetScene();
-    }
-
-    public void KilledByBaddie(SelfishGene agent, Collision baddieCol)
-    {
-        baddieCol.gameObject.SetActive(false);
-        m_NumberOfRemainingPlayers--;
-        agent.gameObject.SetActive(false);
-        print($"{baddieCol.gameObject.name} ate {agent.transform.name}");
-
-        //Spawn Tombstone
-        Tombstone.transform.SetPositionAndRotation(agent.transform.position, agent.transform.rotation);
-        Tombstone.SetActive(true);
-
-        //Spawn the Key Pickup
-        Key.transform.SetPositionAndRotation(baddieCol.collider.transform.position, baddieCol.collider.transform.rotation);
-        Key.SetActive(true);
     }
 
     /// <summary>
@@ -246,17 +219,5 @@ public class SelfishGeneEnvController : MonoBehaviour
 
         //Reset Tombstone
         Tombstone.SetActive(false);
-
-        //End Episode
-        foreach (var item in DragonsList)
-        {
-            if (!item.Agent)
-            {
-                return;
-            }
-            item.Agent.transform.SetPositionAndRotation(item.StartingPos, item.StartingRot);
-            item.Agent.SetRandomWalkSpeed();
-            item.Agent.gameObject.SetActive(true);
-        }
     }
 }

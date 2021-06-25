@@ -108,6 +108,8 @@ public class SelfishGene : Agent
         }
         if (col.transform.CompareTag("selfgoal"))
         {
+            MyKey.SetActive(true);
+            IHaveAKey = true;
             m_GameController.SelfishButton(this);
         }
     }
