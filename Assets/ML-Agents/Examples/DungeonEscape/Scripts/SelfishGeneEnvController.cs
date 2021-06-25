@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Unity.MLAgents;
 using UnityEngine;
 
-public class DungeonEscapeEnvController : MonoBehaviour
+public class SelfishGeneEnvController : MonoBehaviour
 {
     [System.Serializable]
     public class PlayerInfo
     {
-        public PushAgentEscape Agent;
+        public SelfishGene Agent;
         [HideInInspector]
         public Vector3 StartingPos;
         [HideInInspector]
@@ -61,7 +61,7 @@ public class DungeonEscapeEnvController : MonoBehaviour
 
     public List<PlayerInfo> AgentsList = new List<PlayerInfo>();
     public List<DragonInfo> DragonsList = new List<DragonInfo>();
-    private Dictionary<PushAgentEscape, PlayerInfo> m_PlayerDict = new Dictionary<PushAgentEscape, PlayerInfo>();
+    private Dictionary<SelfishGene, PlayerInfo> m_PlayerDict = new Dictionary<SelfishGene, PlayerInfo>();
     public bool UseRandomAgentRotation = true;
     public bool UseRandomAgentPosition = true;
     PushBlockSettings m_PushBlockSettings;
@@ -120,7 +120,7 @@ public class DungeonEscapeEnvController : MonoBehaviour
         }
     }
 
-    public void TouchedHazard(PushAgentEscape agent)
+    public void TouchedHazard(SelfishGene agent)
     {
         m_NumberOfRemainingPlayers--;
         if (m_NumberOfRemainingPlayers == 0 || agent.IHaveAKey)
@@ -145,7 +145,7 @@ public class DungeonEscapeEnvController : MonoBehaviour
         ResetScene();
     }
 
-    public void KilledByBaddie(PushAgentEscape agent, Collision baddieCol)
+    public void KilledByBaddie(SelfishGene agent, Collision baddieCol)
     {
         baddieCol.gameObject.SetActive(false);
         m_NumberOfRemainingPlayers--;

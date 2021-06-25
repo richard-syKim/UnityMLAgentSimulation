@@ -3,18 +3,18 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 
-public class SelfishGeneAgent : Agent
+public class SelfishGene : Agent
 {
 
     public GameObject MyKey; //my key gameobject. will be enabled when key picked up.
     public bool IHaveAKey; //have i picked up a key
     private PushBlockSettings m_PushBlockSettings;
     private Rigidbody m_AgentRb;
-    private DungeonEscapeEnvController m_GameController;
+    private SelfishGeneEnvController m_GameController;
 
     public override void Initialize()
     {
-        m_GameController = GetComponentInParent<DungeonEscapeEnvController>();
+        m_GameController = GetComponentInParent<SelfishGeneEnvController>();
         m_AgentRb = GetComponent<Rigidbody>();
         m_PushBlockSettings = FindObjectOfType<PushBlockSettings>();
         MyKey.SetActive(false);

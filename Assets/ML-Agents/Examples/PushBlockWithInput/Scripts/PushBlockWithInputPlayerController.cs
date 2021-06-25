@@ -1,4 +1,4 @@
-using Unity.MLAgents.Extensions.Input;
+//using Unity.MLAgents.Extensions.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,7 +18,7 @@ using UnityEngine.InputSystem;
 /// need to share the instance of the generated C# <see cref="IInputActionCollection2"/> (named <see cref="m_PushBlockActions"/>
 /// here) in order to ensure that all of your actions are bound correctly for ml-agents training and inference.
 /// </summary>
-public class PushBlockWithInputPlayerController : MonoBehaviour, IInputActionAssetProvider
+public class PushBlockWithInputPlayerController : MonoBehaviour //, IInputActionAssetProvider
 {
 
     PushBlockWithInputSettings m_PushBlockSettings;
