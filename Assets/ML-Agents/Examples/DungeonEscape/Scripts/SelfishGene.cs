@@ -17,13 +17,11 @@ public class SelfishGene : Agent
         m_GameController = GetComponentInParent<SelfishGeneEnvController>();
         m_AgentRb = GetComponent<Rigidbody>();
         m_PushBlockSettings = FindObjectOfType<PushBlockSettings>();
-        MyKey.SetActive(false);
         IHaveAKey = false;
     }
 
     public override void OnEpisodeBegin()
     {
-        MyKey.SetActive(false);
         IHaveAKey = false;
     }
 
