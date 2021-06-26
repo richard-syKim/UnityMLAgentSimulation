@@ -1007,7 +1007,6 @@ MonoBehaviour:
     StartingRot: {x: 0, y: 0, z: 0, w: 0}
     Rb: {fileID: 0}
     Col: {fileID: 0}
-  DragonsList: []
   UseRandomAgentRotation: 1
   UseRandomAgentPosition: 1
   Key: {fileID: 0}
@@ -1452,6 +1451,8 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   MyKey: {fileID: 0}
+  wall1: {fileID: 7246077704843572777}
+  wall2: {fileID: 8909923025410986719}
   IHaveAKey: 0
 --- !u!114 &7372021399420949116
 MonoBehaviour:

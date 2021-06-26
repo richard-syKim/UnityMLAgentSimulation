@@ -5,8 +5,6 @@ using Unity.MLAgents.Actuators;
 
 public class SelfishGene : Agent
 {
-
-    public GameObject MyKey; //my key gameobject. will be enabled when key picked up.
     public GameObject wall1; //movable
     public GameObject wall2; //movable
     public bool IHaveAKey; //have i picked up a key
