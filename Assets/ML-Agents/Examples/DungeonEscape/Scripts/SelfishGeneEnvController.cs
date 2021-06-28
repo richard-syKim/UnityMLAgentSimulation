@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Unity.MLAgents;
 using UnityEngine;
 
-public class DungeonEscapeEnvController : MonoBehaviour
+public class SelfishGeneEnvController : MonoBehaviour
 {
     [System.Serializable]
     public class PlayerInfo
     {
-        public PushAgentEscape Agent;
+        public SelfishGene Agent;
         [HideInInspector]
         public Vector3 StartingPos;
         [HideInInspector]
@@ -17,22 +17,6 @@ public class DungeonEscapeEnvController : MonoBehaviour
         public Rigidbody Rb;
         [HideInInspector]
         public Collider Col;
-    }
-
-    [System.Serializable]
-    public class DragonInfo
-    {
-        public SimpleNPC Agent;
-        [HideInInspector]
-        public Vector3 StartingPos;
-        [HideInInspector]
-        public Quaternion StartingRot;
-        [HideInInspector]
-        public Rigidbody Rb;
-        [HideInInspector]
-        public Collider Col;
-        public Transform T;
-        public bool IsDead;
     }
 
     /// <summary>
@@ -60,8 +44,7 @@ public class DungeonEscapeEnvController : MonoBehaviour
     Renderer m_GroundRenderer;
 
     public List<PlayerInfo> AgentsList = new List<PlayerInfo>();
-    public List<DragonInfo> DragonsList = new List<DragonInfo>();
-    private Dictionary<PushAgentEscape, PlayerInfo> m_PlayerDict = new Dictionary<PushAgentEscape, PlayerInfo>();
+    private Dictionary<SelfishGene, PlayerInfo> m_PlayerDict = new Dictionary<SelfishGene, PlayerInfo>();
     public bool UseRandomAgentRotation = true;
     public bool UseRandomAgentPosition = true;
     PushBlockSettings m_PushBlockSettings;
@@ -98,13 +81,6 @@ public class DungeonEscapeEnvController : MonoBehaviour
             // Add to team manager
             m_AgentGroup.RegisterAgent(item.Agent);
         }
-        foreach (var item in DragonsList)
-        {
-            item.StartingPos = item.Agent.transform.position;
-            item.StartingRot = item.Agent.transform.rotation;
-            item.T = item.Agent.transform;
-            item.Col = item.Agent.GetComponent<Collider>();
-        }
 
         ResetScene();
     }
@@ -120,45 +96,40 @@ public class DungeonEscapeEnvController : MonoBehaviour
         }
     }
 
-    public void TouchedHazard(PushAgentEscape agent)
+    public void SelfishButton(SelfishGene agent)
     {
         m_NumberOfRemainingPlayers--;
-        if (m_NumberOfRemainingPlayers == 0 || agent.IHaveAKey)
+        foreach(var item in AgentsList)
+        {
+            if(!GameObject.ReferenceEquals(item.Agent, agent))
+            {
+                item.Agent.gameObject.SetActive(false);
+            }
+        }
+
+        if (m_NumberOfRemainingPlayers == 0)
         {
             m_AgentGroup.EndGroupEpisode();
             ResetScene();
-        }
-        else
-        {
-            agent.gameObject.SetActive(false);
         }
     }
 
     public void UnlockDoor()
     {
-        m_AgentGroup.AddGroupReward(1f);
+        foreach (var item in AgentsList)
+        {
+            if (!item.Agent) 
+            {
+                item.Agent.AddReward(1f);
+            }
+        }
+
         StartCoroutine(GoalScoredSwapGroundMaterial(m_PushBlockSettings.goalScoredMaterial, 0.5f));
 
         print("Unlocked Door");
         m_AgentGroup.EndGroupEpisode();
 
         ResetScene();
-    }
-
-    public void KilledByBaddie(PushAgentEscape agent, Collision baddieCol)
-    {
-        baddieCol.gameObject.SetActive(false);
-        m_NumberOfRemainingPlayers--;
-        agent.gameObject.SetActive(false);
-        print($"{baddieCol.gameObject.name} ate {agent.transform.name}");
-
-        //Spawn Tombstone
-        Tombstone.transform.SetPositionAndRotation(agent.transform.position, agent.transform.rotation);
-        Tombstone.SetActive(true);
-
-        //Spawn the Key Pickup
-        Key.transform.SetPositionAndRotation(baddieCol.collider.transform.position, baddieCol.collider.transform.rotation);
-        Key.SetActive(true);
     }
 
     /// <summary>
@@ -242,17 +213,5 @@ public class DungeonEscapeEnvController : MonoBehaviour
 
         //Reset Tombstone
         Tombstone.SetActive(false);
-
-        //End Episode
-        foreach (var item in DragonsList)
-        {
-            if (!item.Agent)
-            {
-                return;
-            }
-            item.Agent.transform.SetPositionAndRotation(item.StartingPos, item.StartingRot);
-            item.Agent.SetRandomWalkSpeed();
-            item.Agent.gameObject.SetActive(true);
-        }
     }
 }

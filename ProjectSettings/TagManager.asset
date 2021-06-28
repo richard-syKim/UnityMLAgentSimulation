@@ -30,6 +30,13 @@ TagManager:
   - purpleAgent
   - purpleGoal
   - tile
+  - key
+  - portal
+  - dragon
+  - lock
+  - coopkey
+  - coopgoal
+  - selfgoal
   layers:
   - Default
   - TransparentFX
