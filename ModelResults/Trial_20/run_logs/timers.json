@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1629200892",
+        "python_version": "3.9.5 (tags/v3.9.5:0a7dcbd, May  3 2021, 17:27:52) [MSC v.1928 64 bit (AMD64)]",
+        "command_line_arguments": "E:\\ml-agents-main\\venv\\Scripts\\mlagents-learn config/poca/DungeonEscape.yaml --run-id Trial_20",
+        "mlagents_version": "0.26.0",
+        "mlagents_envs_version": "0.26.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.8.1+cu111",
+        "numpy_version": "1.20.3",
+        "end_time_seconds": "1629200925"
+    },
+    "total": 32.8438835,
+    "count": 1,
+    "self": 0.016499199999998382,
+    "children": {
+        "run_training.setup": {
+            "total": 0.14355070000000003,
+            "count": 1,
+            "self": 0.14355070000000003
+        },
+        "TrainerController.start_learning": {
+            "total": 32.6838336,
+            "count": 1,
+            "self": 0.00010540000000247574,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 32.6834623,
+                    "count": 1,
+                    "self": 32.6834623
+                },
+                "TrainerController._save_models": {
+                    "total": 0.0002658999999951561,
+                    "count": 1,
+                    "self": 0.0002658999999951561
+                }
+            }
+        }
+    }
+}
