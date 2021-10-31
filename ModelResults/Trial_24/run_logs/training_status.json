@@ -1,0 +1,29 @@
+{
+    "DungeonEscape": {
+        "checkpoints": [
+            {
+                "steps": 499970,
+                "file_path": "results\\Trial_24\\DungeonEscape\\DungeonEscape-499970.onnx",
+                "reward": null,
+                "creation_time": 1629407629.4490547,
+                "auxillary_file_paths": [
+                    "results\\Trial_24\\DungeonEscape\\DungeonEscape-499970.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 499970,
+            "file_path": "results\\Trial_24\\DungeonEscape.onnx",
+            "reward": null,
+            "creation_time": 1629407629.4490547,
+            "auxillary_file_paths": [
+                "results\\Trial_24\\DungeonEscape\\DungeonEscape-499970.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.26.0",
+        "torch_version": "1.8.1+cu111"
+    }
+}

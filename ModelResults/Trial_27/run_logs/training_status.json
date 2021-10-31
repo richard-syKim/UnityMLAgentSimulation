@@ -1,0 +1,47 @@
+{
+    "DungeonEscape": {
+        "checkpoints": [
+            {
+                "steps": 499938,
+                "file_path": "results\\Trial_27\\DungeonEscape\\DungeonEscape-499938.onnx",
+                "reward": null,
+                "creation_time": 1632533233.6281378,
+                "auxillary_file_paths": [
+                    "results\\Trial_27\\DungeonEscape\\DungeonEscape-499938.pt"
+                ]
+            },
+            {
+                "steps": 999938,
+                "file_path": "results\\Trial_27\\DungeonEscape\\DungeonEscape-999938.onnx",
+                "reward": null,
+                "creation_time": 1632534909.7753508,
+                "auxillary_file_paths": [
+                    "results\\Trial_27\\DungeonEscape\\DungeonEscape-999938.pt"
+                ]
+            },
+            {
+                "steps": 1062698,
+                "file_path": "results\\Trial_27\\DungeonEscape\\DungeonEscape-1062698.onnx",
+                "reward": null,
+                "creation_time": 1632535180.3033397,
+                "auxillary_file_paths": [
+                    "results\\Trial_27\\DungeonEscape\\DungeonEscape-1062698.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1062698,
+            "file_path": "results\\Trial_27\\DungeonEscape.onnx",
+            "reward": null,
+            "creation_time": 1632535180.3033397,
+            "auxillary_file_paths": [
+                "results\\Trial_27\\DungeonEscape\\DungeonEscape-1062698.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.26.0",
+        "torch_version": "1.8.1+cu111"
+    }
+}
